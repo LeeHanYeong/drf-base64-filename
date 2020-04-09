@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.forms import ImageField
 from drf_extra_fields.fields import Base64FieldMixin, Base64ImageField, Base64FileField
 from rest_framework.exceptions import ValidationError
@@ -30,12 +31,15 @@ class NamedBase64FieldMixin(Base64FieldMixin):
     def to_internal_value(self, obj):
         if obj in self.EMPTY_VALUES:
             return None
-        elif isinstance(obj, str) and obj.startswith('http'):
-            raise SkipField()
+        elif isinstance(obj, str):
+            if obj.startswith('http'):
+                raise SkipField()
+            media_url = getattr(settings, 'MEDIA_URL', None)
+            if media_url and obj.startswith(media_url):
+                raise SkipField()
         elif isinstance(obj, dict):
             if not all(key in obj for key in ('file_name', 'encoded_str')):
                 raise ValidationError(self.INVALID_OBJECT)
-
             try:
                 self.name, self.ext = obj['file_name'].rsplit('.', 1)
             except ValueError:
