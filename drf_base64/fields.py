@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.forms import ImageField
-from drf_extra_fields.fields import Base64FieldMixin, Base64ImageField, Base64FileField
+from drf_extra_fields.fields import Base64FieldMixin, Base64FileField, Base64ImageField
+from drf_yasg import openapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import FileField, SkipField
 
@@ -26,7 +27,7 @@ class NamedBase64FieldMixin(Base64FieldMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.help_text is None:
-            self.help_text = 'An object containing keys `file_name` and `encoded_str`'
+            self.help_text = 'Object containing the base64-encoded file along with the name'
 
     def to_internal_value(self, obj):
         if obj in self.EMPTY_VALUES:
@@ -58,6 +59,24 @@ class NamedBase64FieldMixin(Base64FieldMixin):
 
     def get_file_extension(self, filename, decoded_file):
         return self.ext
+
+    class Meta:
+        swagger_schema_fields = {
+            'type': openapi.TYPE_OBJECT,
+            'read_only': False,
+            'properties': {
+                'file_name': openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    description=r'Uploaded file name with the form **`<name>.<extension>`**',
+                    example='pby.jpg',
+                ),
+                'encoded_str': openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    description='Base64 encoded file string',
+                    example='aHR0cHM6Ly9naXRodWIuY29tL2xlZWhhbnllb25n',
+                ),
+            },
+        }
 
 
 class NamedBase64FileField(NamedBase64FieldMixin, Base64FileField, FileField):
