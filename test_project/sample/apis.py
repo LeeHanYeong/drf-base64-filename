@@ -7,7 +7,7 @@ from .serializers import (
     SampleNamedBase64ImageSerializer,
     SampleNamedBase64FileSerializer,
     SampleParentFilenameImageSerializer,
-    SampleParentFilenameFileSerializer
+    SampleParentFilenameFileSerializer,
 )
 
 

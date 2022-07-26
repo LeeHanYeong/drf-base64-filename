@@ -12,8 +12,8 @@ class SampleBase64ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = SampleBase64ImageModel
         fields = (
-            'id',
-            'image',
+            "id",
+            "image",
         )
 
 
@@ -23,8 +23,8 @@ class SampleBase64FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = SampleBase64FileModel
         fields = (
-            'id',
-            'file',
+            "id",
+            "file",
         )
 
 
@@ -34,8 +34,8 @@ class SampleNamedBase64ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = SampleBase64ImageModel
         fields = (
-            'id',
-            'image',
+            "id",
+            "image",
         )
 
 
@@ -45,8 +45,8 @@ class SampleNamedBase64FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = SampleBase64FileModel
         fields = (
-            'id',
-            'file',
+            "id",
+            "file",
         )
 
 
@@ -56,8 +56,8 @@ class SampleParentFilenameImageSerializer(WritableNestedModelSerializer):
     class Meta:
         model = SampleParentModel
         fields = (
-            'id',
-            'image_set',
+            "id",
+            "image_set",
         )
 
 
@@ -67,6 +67,6 @@ class SampleParentFilenameFileSerializer(WritableNestedModelSerializer):
     class Meta:
         model = SampleParentModel
         fields = (
-            'id',
-            'file_set',
+            "id",
+            "file_set",
         )
