@@ -1,6 +1,6 @@
 [project]
 name = "drf-base64-filename"
-version = "1.0.3"
+version = "1.0.4"
 authors = [{ name = "lhy", email = "dev@lhy.kr" }]
 description = "drf-base64-filename provides Serializer fields for using base64-encoded files with file names."
 readme = "README.md"
